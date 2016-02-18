@@ -1,0 +1,49 @@
+---
+
+- name: Get OS-specific variables
+  include_vars: "{{ item }}"
+  with_first_found:
+   - "{{ ansible_distribution }}.yml"
+   - "{{ ansible_os_family }}.yml"
+  tags: always
+
+- name: Update apt-get cache
+  apt: update_cache=yes cache_valid_time=86400
+  when: ansible_os_family == 'Debian'
+  tags: pkg
+
+- name: Install the keepalived package
+  package: name={{ keepalived_pkg }} state=latest
+  tags: pkg
+
+- name: Configure keepalived
+  template:
+    src: keepalived.conf.j2
+    dest: "{{ keepalived_cfg }}"
+    owner: root
+    group: root
+    mode: 0640
+  notify: restart keepalived
+  tags: cfg
+
+- name: Allow binding to a non-local IP
+  sysctl:
+    name: net.ipv4.ip_nonlocal_bind
+    value: "{{ keepalived_ip_nonlocal_bind }}"
+    reload: true
+    state: present
+  tags: cfg
+
+- name: Install check and notify script(s)
+  copy: src=files/{{ item }} dest=/usr/local/sbin/keepalived-{{ item }}
+        owner=0 group=0 mode=0550
+  with_items:
+    - "{{ keepalived_scripts }}"
+  tags: cfg
+
+- name: Enable the keepalived service
+  service:
+    name: "{{ keepalived_svc }}"
+    state: started
+    enabled: yes
+  tags: svc

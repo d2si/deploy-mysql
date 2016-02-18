@@ -1,0 +1,54 @@
+---
+
+- hosts: mastera
+  roles:
+    - role: keepalived
+      tags:
+        - master
+        - slave
+      keepalived_vrrp_scripts:
+        healthcheck:
+          script: healthcheck
+          interval: 5
+      keepalived_vrrp_instances:
+        VI_1:
+          interface: eth0
+          state: MASTER
+          priority: 101
+          smtp_alert: true
+          authentication:
+            auth_type: PASS
+            auth_pass: 'ChangeME'
+          virtual_ipaddresses:
+            - 192.168.255.201
+          track_scripts:
+            - healthcheck
+
+- hosts: masterb
+  roles:
+    - role: keepalived
+      tags:
+        - master
+        - slave
+      keepalived_vrrp_scripts:
+        healthcheck:
+          script: healthcheck
+          interval: 5
+      keepalived_vrrp_instances:
+        VI_1:
+          interface: eth0
+          state: MASTER
+          priority: 100
+          smtp_alert: true
+          authentication:
+            auth_type: PASS
+            auth_pass: 'ChangeME'
+          virtual_ipaddresses:
+            - 192.168.255.201
+          track_scripts:
+            - healthcheck
+
+#- hosts: slave
+#  roles:
+#    - role: XXXTODO
+#      tags: slave

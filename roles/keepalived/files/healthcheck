@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#
+
+mysql -u root --connect_timeout=3 --execute="select version();"
