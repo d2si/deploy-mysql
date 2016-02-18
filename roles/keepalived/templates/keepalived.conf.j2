@@ -7,6 +7,7 @@ global_defs {
 {% endfor %}
   }
   notification_email_from {{ keepalived_notification_email_from }}
+  router_id mysql-ha-{{ ansible_hostname }}
   smtp_server {{ keepalived_smtp_server }}
   smtp_connect_timeout {{ keepalived_smtp_connect_timeout }}
 }
@@ -34,7 +35,11 @@ vrrp_instance {{ key }} {
   interface {{ value.interface }}
   state {{ value.state }}
   priority {{ value.priority }}
+{% if value.virtual_router_id is defined and value.virtual_router_id | int %}
   virtual_router_id {{ value.virtual_router_id }}
+{% else %}
+  virtual_router_id 51
+{% endif %}
 {% if value.advert_int is defined and value.advert_int | int %}
   advert_int {{ value.advert_int }}
 {% endif %}

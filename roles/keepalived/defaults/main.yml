@@ -15,8 +15,8 @@ keepalived_scripts: ['healthcheck']
 # opt: weight, interval, fall, rise
 keepalived_vrrp_scripts: {}
 
-# req: interface, state, priority, virtual_router_id, authentication.auth_type,
+# req: interface, state, priority, authentication.auth_type,
 #      authentication.auth_pass
 # opt: advert_int, smtp_alert, virtual_ipaddresses[], track_scripts nopreempt,
-#      preempt_delay, track_scripts, notify
+#      preempt_delay, track_scripts, notify, virtual_router_id
 keepalived_vrrp_instances: {}
