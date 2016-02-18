@@ -1,6 +1,9 @@
 ---
 
-- hosts: mastera
+- hosts: mysql-master-a
+  vars_files:
+    - vars/main.yml
+    - vars/masterA.yml
   roles:
     - role: keepalived
       tags:
@@ -23,8 +26,13 @@
             - 192.168.255.201
           track_scripts:
             - healthcheck
+    - role: mysql
+      tags: master
 
-- hosts: masterb
+- hosts: mysql-master-b
+  vars_files:
+    - vars/main.yml
+    - vars/masterB.yml
   roles:
     - role: keepalived
       tags:
@@ -47,8 +55,12 @@
             - 192.168.255.201
           track_scripts:
             - healthcheck
+    - role: mysql
+      tags: master
 
-#- hosts: slave
-#  roles:
-#    - role: XXXTODO
-#      tags: slave
+- hosts: mysql-slaves
+  vars_files:
+    - vars/slave.yml
+  roles:
+    - role: mysql
+      tags: slave
