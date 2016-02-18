@@ -1,14 +1,24 @@
-- hosts: masterA
+# MasterA et B
+- hosts: mysql-master-a
+  vars_files:
+    - vars/main.yml
+    - vars/masterA.yml
   roles:
-    - role: TODO
-      tags: TODO
+    - role: ansible-role-mysql
+      tags: master
 
-- hosts: masterB
+- hosts: mysql-master-b
+  vars_files:
+    - vars/main.yml
+    - vars/masterB.yml
   roles:
-    - role: TODO
-      tags: TODO
+    - role: ansible-role-mysql
+      tags: master
 
-- hosts: slave
+# Slave
+- hosts: mysql-slaves
+  vars_files:
+    - vars/slave.yml
   roles:
-    - role: TODO
-      tags: TODO
+    - role: ansible-role-mysql
+      tags: slave
