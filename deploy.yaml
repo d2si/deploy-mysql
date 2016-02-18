@@ -1,0 +1,14 @@
+- hosts: masterA
+  roles:
+    - role: TODO
+      tags: TODO
+
+- hosts: masterB
+  roles:
+    - role: TODO
+      tags: TODO
+
+- hosts: slave
+  roles:
+    - role: TODO
+      tags: TODO
