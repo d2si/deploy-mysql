@@ -62,7 +62,9 @@ vrrp_instance {{ key }} {
 {% endfor %}
   }
 {% if value.notify is defined %}
-  notify "{{ value.notify }}"
+  notify_master "{{ value.notify }} MASTER"
+  notify_backup "{{ value.notify }} BACKUP"
+  notify_fault "{{ value.notify }} FAULT"
 {% endif %}
 }
 {% endfor %}
