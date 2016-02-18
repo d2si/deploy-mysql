@@ -1,6 +1,22 @@
 ---
 
-keepalived_cfg: "{{ osvar_cfg_path }}"
-keepalived_pkg: "{{ osvar_pkg_name }}"
-keepalived_svc: "{{ osvar_svc_name }}"
+keepalived_cfg: "{{ osvar_cfg }}"
+keepalived_pkg: "{{ osvar_pkg }}"
+keepalived_svc: "{{ osvar_svc }}"
 
+keepalived_ip_nonlocal_bind: 1
+keepalived_notification_email: ['root@localhost.localdomain']
+keepalived_notification_email_from: root@localhost.localdomain
+keepalived_smtp_server: 127.0.0.1
+keepalived_smtp_connect_timeout: 30
+keepalived_scripts: ['healthcheck']
+
+# req: key.script
+# opt: key.weight, key.interval, key.fall, key.rise
+keepalived_vrrp_scripts: {}
+
+# req: interface,state, priority, virtual_router_id, authentication.auth_type,
+#      authentication.auth_pass
+# opt: advert_int, smtp_alert, virtual_ipaddresses[], track_scripts nopreempt,
+#      preempt_delay, track_scripts, notify
+keepalived_vrrp_instances: {}

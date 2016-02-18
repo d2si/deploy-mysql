@@ -1,3 +1,6 @@
+[masters]
 mastera
 masterb
+
+[slaves]
 slave
