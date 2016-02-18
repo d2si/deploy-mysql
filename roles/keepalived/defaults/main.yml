@@ -11,11 +11,11 @@ keepalived_smtp_server: 127.0.0.1
 keepalived_smtp_connect_timeout: 30
 keepalived_scripts: ['healthcheck']
 
-# req: key.script
-# opt: key.weight, key.interval, key.fall, key.rise
+# req: script
+# opt: weight, interval, fall, rise
 keepalived_vrrp_scripts: {}
 
-# req: interface,state, priority, virtual_router_id, authentication.auth_type,
+# req: interface, state, priority, virtual_router_id, authentication.auth_type,
 #      authentication.auth_pass
 # opt: advert_int, smtp_alert, virtual_ipaddresses[], track_scripts nopreempt,
 #      preempt_delay, track_scripts, notify
