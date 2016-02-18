@@ -1,0 +1,17 @@
+---
+
+- name: Get OS-specific variables
+  include_vars: "{{ item }}"
+  with_first_found:
+   - "{{ ansible_distribution }}.yml"
+   - "{{ ansible_os_family }}.yml"
+  tags: always
+
+- name: Update apt-get cache
+  apt: update_cache=yes cache_valid_time=86400
+  when: ansible_os_family == 'Debian'
+  tags: pkg
+
+- name: Install the keepalived package
+  package: name={{ keepalived_pkg }} state=latest
+  tags: pkg

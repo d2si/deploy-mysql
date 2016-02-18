@@ -1,0 +1,6 @@
+---
+
+keepalived_cfg: "{{ osvar_cfg_path }}"
+keepalived_pkg: "{{ osvar_pkg_name }}"
+keepalived_svc: "{{ osvar_svc_name }}"
+

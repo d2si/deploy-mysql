@@ -1,0 +1,5 @@
+---
+
+osvar_cfg: /etc/keepalived/keepalived.conf
+osvar_pkg: keepalived
+osvar_svc: keepalived
