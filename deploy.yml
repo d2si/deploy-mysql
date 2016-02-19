@@ -2,29 +2,35 @@
 
 - hosts: mysql-servers
   tasks:
-  - name: Ensure MySQL Python libraries are installed
-    apt: name=python-mysqldb state=installed update_cache=yes
+    - name: Ensure MySQL Python libraries are installed
+      apt: name=python-mysqldb state=installed
+           update_cache=yes cache_valid_time=86400
 
 - hosts: mysql-master-a
   roles:
+
     - role: mysql
-      tags: master
       mysql_replication_role: master-master
       mysql_replication_master: mysql-master-b
-      mysql_server_id: 1
-      mysql_root_password_update: no
       mysql_root_password: superpassword
-      mysql_bind_address: '{{ ansible_eth0.ipv4.address }}'
-      mysql_innodb_flush_method: O_DIRECT
       mysql_replication_user:
         name: replicator
         host: "%"
         password: "test"
         priv: "*.*:REPLICATION SLAVE"
+      mysql_cfg_override: |
+        [mysqld]
+        server-id = 1
+        auto_increment_offset = 1
+        auto_increment_increment = 2
+        replicate-ignore-db = mysql
+        binlog-ignore-db = mysql
+        log-slave-updates
+        tmpdir = /var/tmp
+        log_bin = /var/log/mysql/mysql-bin.log
+        bind-address = 0.0.0.0
+
     - role: keepalived
-      tags:
-        - master
-        - slave
       keepalived_vrrp_scripts:
         healthcheck:
           script: healthcheck
@@ -45,22 +51,29 @@
 
 - hosts: mysql-master-b
   roles:
+
     - role: mysql
-      tags: master
       mysql_replication_role: master-master
       mysql_replication_master: mysql-master-a
-      mysql_server_id: 2
-      mysql_root_password_update: no
       mysql_root_password: superpassword
-      mysql_bind_address: '{{ ansible_eth0.ipv4.address }}'
-      mysql_innodb_flush_method: O_DIRECT
       mysql_replication_user:
         name: replicator
         host: "%"
         password: "test"
         priv: "*.*:REPLICATION SLAVE"
+      mysql_cfg_override: |
+        [mysqld]
+        server-id = 2
+        auto_increment_offset = 2
+        auto_increment_increment = 2
+        replicate-ignore-db = mysql
+        binlog-ignore-db = mysql
+        log-slave-updates
+        tmpdir = /var/tmp
+        log_bin = /var/log/mysql/mysql-bin.log
+        bind-address = 0.0.0.0
+
     - role: keepalived
-      tags:
         - master
         - slave
       keepalived_vrrp_scripts:
@@ -85,12 +98,14 @@
 - hosts: mysql-slave-a
   roles:
     - role: mysql
-      tags: slave
-      mysql_root_password_update: no
       mysql_root_password: superpassword
       mysql_replication_role: slave
-      mysql_replication_master: mysql-master-a
-      mysql_server_id: 3
+      mysql_replication_master: mysql-master-b
       mysql_replication_user:
         name: replicator
         password: "test"
+      mysql_cfg_override: |
+        [mysqld]
+        server-id = 3
+        read-only = 1
+        tmpdir = /var/tmp

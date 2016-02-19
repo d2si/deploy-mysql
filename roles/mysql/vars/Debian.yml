@@ -1,4 +1,5 @@
 ---
+
 __mysql_daemon: mysql
 __mysql_packages:
   - mysql-common

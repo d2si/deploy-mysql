@@ -1,4 +1,5 @@
 ---
+
 - name: Disallow root login remotely
   command: 'mysql -NBe "{{ item }}"'
   with_items:
@@ -19,7 +20,6 @@
   with_items: mysql_root_hosts.stdout_lines
   when: mysql_install_packages | bool or mysql_root_password_update
 
-# Has to be after the root password assignment, for idempotency.
 - name: Copy .my.cnf file with root password credentials.
   template:
     src: "user-my.cnf.j2"
