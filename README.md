@@ -20,7 +20,6 @@ None.
     mysql_root_username: root
     mysql_root_password: root
     mysql_root_password_update: no
-    mysql_enabled_on_startup: yes
     mysql_datadir: /var/lib/mysql
     mysql_replication_user: []
 

@@ -1,10 +1,6 @@
 ---
 
-__mysql_daemon: mysql
-__mysql_packages:
-  - mysql-common
-  - mysql-server
-__mysql_slow_query_log_file: /var/log/mysql/mysql-slow.log
-mysql_config_file: /etc/mysql/my.cnf
-mysql_config_include_dir: /etc/mysql/conf.d
-mysql_socket: /var/run/mysqld/mysqld.sock
+osvar_cfg: /etc/mysql/my.cnf
+osvar_pkg: mysql-server
+osvar_svc: mysql
+osvar_cfg_incdir: /etc/mysql/conf.d

@@ -1,10 +1,14 @@
 ---
 
+mysql_cfg: "{{ osvar_cfg }}"
+mysql_pkg: "{{ osvar_pkg }}"
+mysql_svc: "{{ osvar_svc }}"
+mysql_cfg_incdir: "{{ osvar_cfg_incdir }}"
+
 mysql_user_home: /root
 mysql_root_username: root
 mysql_root_password: root
 mysql_root_password_update: no
-mysql_enabled_on_startup: yes
 mysql_datadir: /var/lib/mysql
 mysql_replication_user: []
 mysql_cfg_override: ""

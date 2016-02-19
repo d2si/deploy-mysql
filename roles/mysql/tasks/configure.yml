@@ -11,10 +11,11 @@
 - name: Install cnf override into include directory.
   template:
     src=ansible.cnf.j2
-    dest="{{ mysql_config_include_dir }}/ansible.cnf"
+    dest="{{ mysql_cfg_incdir }}/ansible.cnf"
     owner=root group=mysql mode=0640
   notify: restart mysql
 
 - name: Ensure MySQL is started and enabled on boot.
-  service: "name={{ mysql_daemon }} state=started enabled={{ mysql_enabled_on_startup }}"
-  register: mysql_service_configuration
+  service: name={{ mysql_svc }}
+           state=started
+           enabled=yes
