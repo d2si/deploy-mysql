@@ -31,5 +31,4 @@
 - include: secure-installation.yml
 - include: databases.yml
 - include: users.yml
-- include: replication-master-slave.yml
-- include: replication-master-master.yml
+- include: replication.yml

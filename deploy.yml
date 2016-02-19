@@ -1,9 +1,6 @@
 ---
 
 - hosts: mysql-master-a
-  vars_files:
-    - vars/main.yml
-    - vars/masterA.yml
   roles:
     - role: keepalived
       tags:
@@ -28,11 +25,19 @@
             - healthcheck
     - role: mysql
       tags: master
+      mysql_replication_role: master-master
+      mysql_replication_master: mysql-master-b
+      mysql_server_id: 1
+      mysql_root_password_update: no
+      mysql_root_password: superpassword
+      mysql_bind_address: '{{ ansible_eth0.ipv4.address }}'
+      mysql_replication_user:
+        name: replicator
+        host: "%"
+        password: "test"
+        priv: "*.*:REPLICATION SLAVE"
 
 - hosts: mysql-master-b
-  vars_files:
-    - vars/main.yml
-    - vars/masterB.yml
   roles:
     - role: keepalived
       tags:
@@ -58,10 +63,29 @@
             - healthcheck
     - role: mysql
       tags: master
+      mysql_replication_role: master-master
+      mysql_replication_master: mysql-master-a
+      mysql_server_id: 2
+      mysql_root_password_update: no
+      mysql_root_password: superpassword
+      mysql_bind_address: '{{ ansible_eth0.ipv4.address }}'
+      mysql_replication_user:
+        name: replicator
+        host: "%"
+        password: "test"
+        priv: "*.*:REPLICATION SLAVE"
 
-- hosts: mysql-slaves
-  vars_files:
-    - vars/slave.yml
+- hosts: mysql-slave-a
   roles:
     - role: mysql
       tags: slave
+      mysql_root_password_update: no
+      mysql_root_password: superpassword
+      mysql_replication_role: slave
+      mysql_replication_master: mysql-slave-a
+      mysql_server_id: 3
+      mysql_replication_user:
+        name: replicator
+        host: "%"
+        password: "test"
+        priv: "*.*:REPLICATION SLAVE"
