@@ -91,6 +91,4 @@
       mysql_server_id: 3
       mysql_replication_user:
         name: replicator
-        host: "%"
         password: "test"
-        priv: "*.*:REPLICATION SLAVE"
