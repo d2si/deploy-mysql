@@ -65,13 +65,13 @@ binlog_ignore_db = {{ db.name }}
 {% endfor %}
 {% endif %}
 
-relay-log = {{ mysql_srelay_log }}
-relay-log-index = {{ mysql_srelay_log_index }}
+relay-log = {{ mysql_relay_log }}
+relay-log-index = {{ mysql_relay_log_index }}
 
 {% if mysql_replication_role == 'slave' %}
 read_only
-relay-log = {{ mysql_srelay_log }}
-relay-log-index = {{ mysql_srelay_log_index }}
+relay-log = {{ mysql_relay_log }}
+relay-log-index = {{ mysql_relay_log_index }}
 {% endif %}
 {% endif %}
 
