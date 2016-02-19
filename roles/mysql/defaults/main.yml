@@ -53,7 +53,6 @@ mysql_thread_stack: 196608
 mysql_query_cache_size: "16M"
 mysql_max_connections: 151
 mysql_tmp_table_size: "512M"
-mysql_tmpdir: "/tmp"
 mysql_max_heap_table_size: "256M"
 mysql_join_buffer_size: "4M"
 mysql_low_priority_updates: 1
