@@ -4,10 +4,6 @@
 
 Installs and configures MySQL on Debian servers.
 
-### Requirements
-
-None.
-
 ### Most important variables
 
     mysql_replication_role: master-master|master|slave
@@ -26,10 +22,6 @@ None.
 ## Role: keepalived
 
 Installs and configures keepalived on Debian servers.
-
-### Requirements
-
-None.
 
 ### Most important variables
 
