@@ -9,6 +9,7 @@ bind-address = {{ mysql_bind_address }}
 datadir = {{ mysql_datadir }}
 socket = {{ mysql_socket }}
 pid-file = {{ mysql_pid_file }}
+tmpdir = {{ mysql_tmpdir }}
 
 # Logging configuration.
 {% if mysql_log_error == 'syslog' or mysql_log == 'syslog' %}
