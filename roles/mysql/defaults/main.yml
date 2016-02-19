@@ -97,8 +97,8 @@ mysql_config_include_files: []
 #  - { src: path/relative/to/playbook/anotherfile.cnf, force: yes }
 
 # Ignore database in replication
-#mysql_replicate_ignore_db: []
-#mysql_binlog_ignore_db: []
+mysql_replicate_ignore_db: []
+mysql_binlog_ignore_db: []
 
 # Databases.
 mysql_databases: []

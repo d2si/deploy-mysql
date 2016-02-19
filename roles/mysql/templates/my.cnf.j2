@@ -88,10 +88,14 @@ thread_cache_size = {{ mysql_thread_cache_size }}
 thread_stack = {{ mysql_thread_stack }}
 query_cache_size = {{ mysql_query_cache_size }}
 max_connections = {{ mysql_max_connections }}
-tmp_table_size = {{ mysql_tmp_table_size }}
-tmpdir = {{ mysql_tmpdir }}
 max_heap_table_size = {{ mysql_max_heap_table_size }}
 join_buffer_size = {{ mysql_join_buffer_size }}
+
+
+# Other settings.
+wait_timeout = {{ mysql_wait_timeout }}
+tmp_table_size = {{ mysql_tmp_table_size }}
+tmpdir = {{ mysql_tmpdir }}
 low_priority_updates = {{ mysql_low_priority_updates }}
 concurrent_insert = {{ mysql_concurrent_insert }}
 skip_name_resolve = {{ mysql_skip_name_resolve }}
@@ -99,10 +103,6 @@ skip_slave_start = {{ mysql_skip_slave_start  }}
 open_files_limit = {{ mysql_open_files_limit }}
 log_slave_updates = {{ mysql_log_slave_updates }}
 tx_isolation = {{ mysql_tx_isolation }}
-
-# Other settings.
-wait_timeout = {{ mysql_wait_timeout }}
-auto_increment_increment
 
 # Try number of CPU's * 2 for thread_concurrency.
 thread_concurrency = {{ mysql_thread_concurrency }}
