@@ -74,8 +74,6 @@
         bind-address = 0.0.0.0
 
     - role: keepalived
-        - master
-        - slave
       keepalived_vrrp_scripts:
         healthcheck:
           script: healthcheck
