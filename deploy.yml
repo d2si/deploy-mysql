@@ -2,7 +2,7 @@
 
 - hosts: mysql-servers
   tasks:
-  - name: install python mysql bindings
+  - name: Ensure MySQL Python libraries are installed
     apt: name=python-mysqldb state=installed update_cache=yes
 
 - hosts: mysql-master-a
