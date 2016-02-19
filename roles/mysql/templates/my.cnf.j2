@@ -33,43 +33,36 @@ long_query_time = {{ mysql_slow_query_time }}
 # Replication
 server-id = {{ mysql_server_id }}
 
-{% if mysql_replication_role == 'master' %}
-log_bin = {{ log_bin }}
-log-bin-index = {{ log_bin_index }}
+{% for db in mysql_replicate_ignore_db %}
+replicate-ignore-db = {{ db }}
+{% endfor %}
+{% for db in mysql_binlog_ignore_db %}
+binlog-ignore-db = {{ db }}
+{% endfor %}
+
+{% if (mysql_replication_role == 'master') or (mysql_replication_role == 'master-master') %}
+log_bin = {{ mysql_log_bin }}
+log-bin-index = {{ mysql_log_bin_index }}
 expire_logs_days = {{ mysql_expire_logs_days }}
 max_binlog_size = {{ mysql_max_binlog_size }}
 
-{% for db in mysql_databases %}
-{% if db.replicate|default(1) %}
-binlog_do_db = {{ db.name }}
-{% else %}
-binlog_ignore_db = {{ db.name }}
-{% endif %}
-{% endfor %}
+{% if auto_increment_increment is defined %}
+auto_increment_increment = {{ mysql_auto_increment_increment }}
 {% endif %}
 
-{% if mysql_replication_role == 'master-master' %}
-log_bin = {{ log_bin }}
-log-bin-index = {{ log_bin_index }}
-expire_logs_days = {{ mysql_expire_logs_days }}
-max_binlog_size = {{ mysql_max_binlog_size }}
-
-{% for db in mysql_databases %}
-{% if db.replicate|default(1) %}
-binlog_do_db = {{ db.name }}
-{% else %}
-binlog_ignore_db = {{ db.name }}
-{% endif %}
-{% endfor %}
+{% if auto_increment_offset is defined %}
+auto_increment_offset  =  {{ mysql_auto_increment_offset }}
 {% endif %}
 
-relay-log = {{ relay_log }}
-relay-log-index = {{ relay_log_index }}
+{% endif %}
+
+relay-log = {{ mysql_relay_log }}
+relay-log-index = {{ mysql_relay_log_index }}
 
 {% if mysql_replication_role == 'slave' %}
 read_only
-relay-log = {{ relay_log }}
-relay-log-index = {{ relay_log_index }}
+relay-log = {{ mysql_relay_log }}
+relay-log-index = {{ mysql_relay_log_index }}
 {% endif %}
 {% endif %}
 
@@ -91,11 +84,24 @@ read_buffer_size = {{ mysql_read_buffer_size }}
 read_rnd_buffer_size = {{ mysql_read_rnd_buffer_size }}
 myisam_sort_buffer_size = {{ mysql_myisam_sort_buffer_size }}
 thread_cache_size = {{ mysql_thread_cache_size }}
+thread_stack = {{ mysql_thread_stack }}
 query_cache_size = {{ mysql_query_cache_size }}
 max_connections = {{ mysql_max_connections }}
+tmp_table_size = {{ mysql_tmp_table_size }}
+tmpdir = {{ mysql_tmpdir }}
+max_heap_table_size = {{ mysql_max_heap_table_size }}
+join_buffer_size = {{ mysql_join_buffer_size }}
+low_priority_updates = {{ mysql_low_priority_updates }}
+concurrent_insert = {{ mysql_concurrent_insert }}
+skip_name_resolve = {{ mysql_skip_name_resolve }}
+skip_slave_start = {{ mysql_skip_slave_start  }}
+open_files_limit = {{ mysql_open_files_limit }}
+log_slave_updates = {{ mysql_log_slave_updates }}
+tx_isolation = {{ mysql_tx_isolation }}
 
 # Other settings.
 wait_timeout = {{ mysql_wait_timeout }}
+auto_increment_increment
 
 # Try number of CPU's * 2 for thread_concurrency.
 thread_concurrency = {{ mysql_thread_concurrency }}
@@ -108,6 +114,9 @@ innodb_log_file_size = {{ mysql_innodb_log_file_size }}
 innodb_log_buffer_size = {{ mysql_innodb_log_buffer_size }}
 innodb_flush_log_at_trx_commit = {{ mysql_innodb_flush_log_at_trx_commit }}
 innodb_lock_wait_timeout = {{ mysql_innodb_lock_wait_timeout }}
+innodb_thread_concurrency = {{ mysql_innodb_thread_concurrency }}
+innodb_flush_method = {{ mysql_innodb_flush_method }}
+innodb_data_file_path = {{ mysql_innodb_data_file_path }}
 
 [mysqldump]
 quick
