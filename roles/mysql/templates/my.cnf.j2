@@ -51,8 +51,8 @@ binlog_ignore_db = {{ db.name }}
 {% endif %}
 
 {% if mysql_replication_role == 'master-master' %}
-log_bin = {{ mysql_slog_bin }}
-log-bin-index = {{ mysql_slog_bin_index }}
+log_bin = {{ mysql_log_bin }}
+log-bin-index = {{ mysql_log_bin_index }}
 expire_logs_days = {{ mysql_expire_logs_days }}
 max_binlog_size = {{ mysql_max_binlog_size }}
 
