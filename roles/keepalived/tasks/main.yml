@@ -26,6 +26,15 @@
   notify: restart keepalived
   tags: cfg
 
+- name: Only enable VRRP
+  lineinfile: dest=/etc/default/keepalived
+              state=present
+              regexp='^DAEMON_ARGS='
+              line='DAEMON_ARGS="-P"'
+  when: ansible_os_family == 'Debian'
+  notify: restart keepalived
+  tags: cfg
+
 - name: Allow binding to a non-local IP
   sysctl:
     name: net.ipv4.ip_nonlocal_bind
