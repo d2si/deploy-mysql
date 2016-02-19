@@ -26,7 +26,7 @@
   set_fact:
     mysql_install_packages: "{{ (deb_mysql_install_packages is defined and deb_mysql_install_packages.changed) }}"
   delegate_to: "{{item}}"
-  with_items: "{{groups['mysql-masters']}}"
+  with_items: "{{groups['all']}}"
 
 # Configure MySQL.
 - include: configure.yml
