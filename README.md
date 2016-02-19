@@ -1,30 +1,30 @@
-# Ansible Role: MySQL
+# MySQL multi-master-slave deployment on Debian
 
+## Ansible Role: mysql
 
-Installs and configures MySQL Debian/Ubuntu servers.
+Installs and configures MySQL on Debian servers.
 
-## Requirements
+### Requirements
 
 None.
 
-## Role Variables
+### Role Variables
 
 Important Variables are:
 
-	mysql_first_deploy: False|True => enable/disable replication master to master
 	mysql_replication_role: master-master|master|slave
 	mysql_replication_master: "master-host-ip"
 
-In case of multimasters replication, you have to run twice the deploy.yaml:
+## Ansible Role: keepalived
 
-The first with:
-	
-	mysql_first_deploy: True 
+Installs and configures keepalived on Debian servers.
 
-to deploy **master/slave** configuration
+### Requirements
 
-The	Second with:
+None.
 
-	mysql_first_deploy: False
+### Role Variables
 
-to enable **auto-replication** process with **master_log_file** and **master_log_position**
+Important Variables are:
+
+        XXXTODO: ipsum
