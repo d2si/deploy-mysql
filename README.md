@@ -41,10 +41,6 @@ Whether the global my.cnf should be overwritten each time this role is run. Sett
 
 A list of files that should override the default global my.cnf. Each item in the array requires a "src" parameter which is a path to a file. An optional "force" parameter can force the file to be updated each time ansible runs.
 
-    mysql_databases: []
-
-The MySQL databases to create. A database has the values `name`, `encoding` (defaults to `utf8`), `collation` (defaults to `utf8_general_ci`) and `replicate` (defaults to `1`, only used if replication is configured). The formats of these are the same as in the `mysql_db` module.
-
     mysql_users: []
 
 The MySQL users and their privileges. A user has the values `name`, `host` (defaults to `localhost`), `password`, `priv` (defaults to `*.*:USAGE`), and `append_privs` (defaults to `no`). The formats of these are the same as in the `mysql_user` module.
