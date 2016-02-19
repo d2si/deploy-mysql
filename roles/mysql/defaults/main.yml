@@ -29,6 +29,12 @@ mysql_datadir: /var/lib/mysql
 mysql_pid_file: /var/run/mysqld/mysqld.pid
 mysql_tmpdir: /tmp
 
+# log_bin
+mysql_log_bin: mysql-bin
+mysql_log_bin_index: mysql-bin.index
+mysql_relay_log: relay-bin
+mysql_relay_log_index: relay-bin.index
+
 # Slow query log settings.
 mysql_slow_query_log_enabled: no
 mysql_slow_query_log_file: /var/log/mysql-slow.log
