@@ -34,16 +34,8 @@ long_query_time = {{ mysql_slow_query_time }}
 server-id = {{ mysql_server_id }}
 
 {% if mysql_replication_role == 'master' %}
-{% if log_bin is defined %}
 log_bin = {{ log_bin }}
-{% else %}
-log_bin = mysql-bin
-{% endif %}
-{% if log_bin_index is defined %}
 log-bin-index = {{ log_bin_index }}
-{% else %}
-log-bin-index = mysql-bin.index
-{% endif %}
 expire_logs_days = {{ mysql_expire_logs_days }}
 max_binlog_size = {{ mysql_max_binlog_size }}
 
@@ -57,8 +49,8 @@ binlog_ignore_db = {{ db.name }}
 {% endif %}
 
 {% if mysql_replication_role == 'master-master' %}
-log_bin = mysql-bin
-log-bin-index = mysql-bin.index
+log_bin = {{ log_bin }}
+log-bin-index = {{ log_bin_index }}
 expire_logs_days = {{ mysql_expire_logs_days }}
 max_binlog_size = {{ mysql_max_binlog_size }}
 
@@ -71,21 +63,13 @@ binlog_ignore_db = {{ db.name }}
 {% endfor %}
 {% endif %}
 
-{% if relay_log is defined %}
 relay-log = {{ relay_log }}
-{% else %}
-relay-log = relay-bin
-{% endif %}
-{% if relay_log_index is defined %}
 relay-log-index = {{ relay_log_index }}
-{% else %}
-relay-log-index = relay-bin.index
-{% endif %}
 
 {% if mysql_replication_role == 'slave' %}
 read_only
-relay-log = relay-bin
-relay-log-index = relay-bin.index
+relay-log = {{ relay_log }}
+relay-log-index = {{ relay_log_index }}
 {% endif %}
 {% endif %}
 
