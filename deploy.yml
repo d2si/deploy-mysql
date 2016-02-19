@@ -2,6 +2,19 @@
 
 - hosts: mysql-master-a
   roles:
+    - role: mysql
+      tags: master
+      mysql_replication_role: master-master
+      mysql_replication_master: mysql-master-b
+      mysql_server_id: 1
+      mysql_root_password_update: no
+      mysql_root_password: superpassword
+      mysql_bind_address: '{{ ansible_eth0.ipv4.address }}'
+      mysql_replication_user:
+        name: replicator
+        host: "%"
+        password: "test"
+        priv: "*.*:REPLICATION SLAVE"
     - role: keepalived
       tags:
         - master
@@ -23,11 +36,14 @@
             - 192.168.255.201
           track_scripts:
             - healthcheck
+
+- hosts: mysql-master-b
+  roles:
     - role: mysql
       tags: master
       mysql_replication_role: master-master
-      mysql_replication_master: mysql-master-b
-      mysql_server_id: 1
+      mysql_replication_master: mysql-master-a
+      mysql_server_id: 2
       mysql_root_password_update: no
       mysql_root_password: superpassword
       mysql_bind_address: '{{ ansible_eth0.ipv4.address }}'
@@ -36,9 +52,6 @@
         host: "%"
         password: "test"
         priv: "*.*:REPLICATION SLAVE"
-
-- hosts: mysql-master-b
-  roles:
     - role: keepalived
       tags:
         - master
@@ -61,19 +74,6 @@
             - 192.168.255.201
           track_scripts:
             - healthcheck
-    - role: mysql
-      tags: master
-      mysql_replication_role: master-master
-      mysql_replication_master: mysql-master-a
-      mysql_server_id: 2
-      mysql_root_password_update: no
-      mysql_root_password: superpassword
-      mysql_bind_address: '{{ ansible_eth0.ipv4.address }}'
-      mysql_replication_user:
-        name: replicator
-        host: "%"
-        password: "test"
-        priv: "*.*:REPLICATION SLAVE"
 
 - hosts: mysql-slave-a
   roles:
