@@ -48,6 +48,7 @@
           state: MASTER
           priority: 100
           smtp_alert: true
+          nopreempt: true
           authentication:
             auth_type: PASS
             auth_pass: 'ChangeME'
