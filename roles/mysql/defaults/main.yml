@@ -61,7 +61,6 @@ mysql_skip_name_resolve: False
 mysql_skip_slave_start: False
 mysql_open_files_limit: 64000
 mysql_log_slave_updates: False
-mysql_tx_isolation: "REPEATABLE-READ"
 
 # Other settings.
 mysql_wait_timeout: 28800
