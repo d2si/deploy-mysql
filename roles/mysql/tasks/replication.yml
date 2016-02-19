@@ -28,6 +28,7 @@
   register: master
   when: >
     slave|failed
+    and (replicator != '')
     and (mysql_replication_role == 'slave'
     or mysql_replication_role == 'master-master')
     and (mysql_replication_master != '')
