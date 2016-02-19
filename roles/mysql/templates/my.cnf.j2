@@ -118,7 +118,6 @@ innodb_thread_concurrency = {{ mysql_innodb_thread_concurrency }}
 {% if mysql_innodb_flush_method is defined %}
 innodb_flush_method = {{ mysql_innodb_flush_method }}
 {% endif %}
-tx_isolation = {{ mysql_tx_isolation }}
 innodb_data_file_path = {{ mysql_innodb_data_file_path }}
 
 [mysqldump]
