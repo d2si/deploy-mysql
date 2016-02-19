@@ -45,7 +45,7 @@
       keepalived_vrrp_instances:
         VI_1:
           interface: eth0
-          state: MASTER
+          state: BACKUP
           priority: 100
           smtp_alert: true
           nopreempt: true
