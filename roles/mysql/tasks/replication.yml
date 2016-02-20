@@ -1,6 +1,6 @@
 ---
 
-- name: Ensure replication user exists on master.
+- name: Ensure replication user exists on master
   mysql_user:
     name: "{{ mysql_replication_user.name }}"
     host: "{{ mysql_replication_user.host | default('%') }}"
@@ -14,7 +14,7 @@
     and mysql_replication_user
     and (mysql_replication_master != '')
 
-- name: Check slave replication status.
+- name: Check slave replication status
   mysql_replication: mode=getslave
   ignore_errors: True
   register: slave
@@ -24,7 +24,7 @@
     or mysql_replication_role == 'master-master')
     and (mysql_replication_master != '')
 
-- name: Check master replication status.
+- name: Check master replication status
   mysql_replication: mode=getmaster
   delegate_to: "{{ mysql_replication_master }}"
   register: master
@@ -35,7 +35,7 @@
     or mysql_replication_role == 'master-master')
     and (mysql_replication_master != '')
 
-- name: Configure replication on the slave.
+- name: Configure replication on the slave
   mysql_replication:
     mode: changemaster
     master_host: "{{ mysql_replication_master }}"
@@ -52,7 +52,7 @@
     and (mysql_replication_master != '')
     and mysql_replication_user
 
-- name: Start replication.
+- name: Start replication
   mysql_replication: mode=startslave
   when: >
     slave|failed

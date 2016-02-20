@@ -1,21 +1,17 @@
 ---
 
-- name: Configure datadir in global MySQL configuration.
-  lineinfile:
-    dest={{ mysql_config_file }}
-    regexp="^datadir"
-    line="datadir = {{ mysql_datadir}}"
+- name: Configure datadir in global MySQL configuration
+  lineinfile: dest={{ mysql_config_file }}
+              regexp="^datadir"
+              line="datadir = {{ mysql_datadir}}"
   notify: restart mysql
   when: datadir is defined
 
-- name: Install cnf override into include directory.
-  template:
-    src=ansible.cnf.j2
-    dest="{{ mysql_cfg_incdir }}/ansible.cnf"
-    owner=root group=mysql mode=0640
+- name: Install cnf override into include directory
+  template: src=ansible.cnf.j2
+            dest="{{ mysql_cfg_incdir }}/ansible.cnf"
+            owner=root group=mysql mode=0640
   notify: restart mysql
 
-- name: Ensure MySQL is started and enabled on boot.
-  service: name={{ mysql_svc }}
-           state=started
-           enabled=yes
+- name: Ensure MySQL is started and enabled on boot
+  service: name={{ mysql_svc }} state=started enabled=yes
