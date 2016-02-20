@@ -1,5 +1,9 @@
 # MySQL multi-master-slave deployment on Debian with Ansible
 
+## Package requirements
+
+    python-mysqldb
+
 ## Role: mysql
 
 Installs and configures MySQL on Debian servers.
@@ -8,16 +12,11 @@ Installs and configures MySQL on Debian servers.
 
     mysql_replication_role: master-master|master|slave
     mysql_replication_master: "master-host-ip"
+    mysql_root_password: superpassword
     mysql_cfg_override: ""
-
-### Few example variables
-
-    mysql_user_home: /root
-    mysql_root_username: root
-    mysql_root_password: root
-    mysql_root_password_update: no
-    mysql_datadir: /var/lib/mysql
-    mysql_replication_user: []
+    mysql_replication_user:
+      name: replicator
+      password: test
 
 ## Role: keepalived
 
