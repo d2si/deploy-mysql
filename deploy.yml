@@ -36,7 +36,7 @@
       keepalived_vrrp_instances:
         VI_1:
           interface: eth0
-          state: MASTER
+          state: SLAVE
           priority: 101
           smtp_alert: true
           authentication:

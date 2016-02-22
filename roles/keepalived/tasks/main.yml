@@ -29,8 +29,8 @@
 - name: Only enable VRRP
   lineinfile: dest=/etc/default/keepalived
               state=present
-              regexp='^DAEMON_ARGS='
-              line='DAEMON_ARGS="-P"'
+              regexp=^DAEMON_ARGS=
+              line=DAEMON_ARGS="{{ keepalived_svc_flags }}"
   when: ansible_os_family == 'Debian'
   notify: restart keepalived
   tags: cfg
