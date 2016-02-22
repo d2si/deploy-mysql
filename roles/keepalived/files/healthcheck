@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 #
 
-mysql -u root --connect_timeout=3 --execute="select version();"
+mysql -u root -p{{ mysql_root_password }} --connect_timeout=3 --execute="select version();"
