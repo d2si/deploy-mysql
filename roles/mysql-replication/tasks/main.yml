@@ -18,7 +18,7 @@
   ignore_errors: True
   register: slave
   when: >
-    and (mysql_replication_role == 'slave'
+    (mysql_replication_role == 'slave'
     or mysql_replication_role == 'master-master')
     and (mysql_replication_master != '')
 
