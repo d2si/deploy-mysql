@@ -43,7 +43,7 @@
 
 - name: Install check and notify script(s)
   template:
-    src=files/{{ item }}
+    src={{ item }}.j2
     dest=/usr/local/sbin/keepalived-{{ item }}
     owner=0 group=0 mode=0550
   with_items:
