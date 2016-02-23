@@ -18,11 +18,9 @@
 
 - name: Configure keepalived
   template:
-    src: keepalived.conf.j2
-    dest: "{{ keepalived_cfg }}"
-    owner: root
-    group: root
-    mode: 0640
+    src=keepalived.conf.j2
+    dest={{ keepalived_cfg }}
+    owner=0 group=0 mode=0640
   notify: restart keepalived
   tags: cfg
 
@@ -44,8 +42,10 @@
   tags: cfg
 
 - name: Install check and notify script(s)
-  copy: src=files/{{ item }} dest=/usr/local/sbin/keepalived-{{ item }}
-        owner=0 group=0 mode=0550
+  template:
+    src=files/{{ item }}
+    dest=/usr/local/sbin/keepalived-{{ item }}
+    owner=0 group=0 mode=0550
   with_items:
     - "{{ keepalived_scripts }}"
   tags: cfg

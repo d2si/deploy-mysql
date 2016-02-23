@@ -22,11 +22,9 @@
 
 - name: Copy .my.cnf file with root password credentials
   template:
-    src: "user-my.cnf.j2"
-    dest: "{{ mysql_user_home }}/.my.cnf"
-    owner: root
-    group: root
-    mode: 0600
+    src=user-my.cnf.j2
+    dest={{ mysql_user_home }}/.my.cnf
+    owner=0 group=0 mode=0600
 
 - name: Get list of hosts for the anonymous user
   command: mysql -NBe 'SELECT Host FROM mysql.user WHERE User = ""'
