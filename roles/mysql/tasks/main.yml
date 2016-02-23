@@ -6,6 +6,8 @@
    - "{{ ansible_distribution }}.yml"
    - "{{ ansible_os_family }}.yml"
 
+- include: shared-vars.yml
+
 - name: Check if MySQL is already installed
   stat: path=/etc/init.d/mysql
   register: mysql_installed

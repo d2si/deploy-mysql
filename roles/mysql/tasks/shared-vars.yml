@@ -1,0 +1,13 @@
+---
+
+- name: Fact mysql_replication_user
+  set_fact:
+    mysql_replication_user: "{{ mysql_replication_user }}"
+
+- name: Fact mysql_replication_master
+  set_fact:
+    mysql_replication_master: "{{ mysql_replication_master }}"
+
+- name: Fact mysql_replication_role
+  set_fact:
+    mysql_replication_role: "{{ mysql_replication_role }}"
