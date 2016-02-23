@@ -13,14 +13,13 @@
 
 - hosts: mysql-master-b
   roles:
-
     - role: mysql
     - role: keepalived
 
 - hosts: mysql-slave-a
   roles:
     - role: mysql
-    
+
 - hosts: mysql-servers
   roles:
     - role: mysql-replication
