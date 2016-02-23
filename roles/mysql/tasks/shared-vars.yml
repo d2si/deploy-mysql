@@ -1,13 +1,21 @@
 ---
 
+# needed by mysql-replication
 - name: Fact mysql_replication_user
   set_fact:
     mysql_replication_user: "{{ mysql_replication_user }}"
 
+# needed by mysql-replication
 - name: Fact mysql_replication_master
   set_fact:
     mysql_replication_master: "{{ mysql_replication_master }}"
 
+# needed by mysql-replication
 - name: Fact mysql_replication_role
   set_fact:
     mysql_replication_role: "{{ mysql_replication_role }}"
+
+# needed by keepalived
+- name: Fact mysql_root_password
+  set_fact:
+    mysql_root_password: "{{ mysql_root_password }}"

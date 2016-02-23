@@ -14,7 +14,7 @@
       mysql_root_password: rootpw-ChangeME
       mysql_replication_user:
         name: repl
-        password: replpq-ChangeME
+        password: replpw-ChangeME
       mysql_cfg_override: |
         [mysqld]
         server-id = 1
