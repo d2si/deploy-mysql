@@ -7,7 +7,6 @@
     password: "{{ mysql_replication_user.password }}"
     priv: "{{ mysql_replication_user.priv | default('*.*:REPLICATION SLAVE') }}"
     state: present
-  register: replicator
   when: >
     (mysql_replication_role == 'master'
     or mysql_replication_role == 'master-master')
@@ -19,8 +18,7 @@
   ignore_errors: True
   register: slave
   when: >
-    (replicator.changed == False)
-    and (mysql_replication_role == 'slave'
+    (mysql_replication_role == 'slave'
     or mysql_replication_role == 'master-master')
     and (mysql_replication_master != '')
 
@@ -30,7 +28,6 @@
   register: master
   when: >
     slave|failed
-    and (replicator.changed == False)
     and (mysql_replication_role == 'slave'
     or mysql_replication_role == 'master-master')
     and (mysql_replication_master != '')
@@ -46,7 +43,6 @@
   ignore_errors: True
   when: >
     slave|failed
-    and (replicator.changed == False)
     and (mysql_replication_role == 'slave'
     or mysql_replication_role == 'master-master')
     and (mysql_replication_master != '')
@@ -56,7 +52,6 @@
   mysql_replication: mode=startslave
   when: >
     slave|failed
-    and (replicator.changed == False)
     and (mysql_replication_role == 'slave'
     or mysql_replication_role == 'master-master')
     and (mysql_replication_master != '')
