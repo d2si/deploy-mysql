@@ -10,12 +10,11 @@
   roles:
 
     - role: mysql
-      mysql_replication_role: master-master
       mysql_replication_master: mysql-master-b
-      mysql_root_password: superpassword
+      mysql_root_password: rootpw-ChangeME
       mysql_replication_user:
-        name: replicator
-        password: test
+        name: repl
+        password: replpq-ChangeME
       mysql_cfg_override: |
         [mysqld]
         server-id = 1
@@ -51,12 +50,11 @@
   roles:
 
     - role: mysql
-      mysql_replication_role: master-master
       mysql_replication_master: mysql-master-a
-      mysql_root_password: superpassword
+      mysql_root_password: rootpw-ChangeME
       mysql_replication_user:
-        name: replicator
-        password: test
+        name: repl
+        password: replpw-ChangeME
       mysql_cfg_override: |
         [mysqld]
         server-id = 2
@@ -90,14 +88,15 @@
             - healthcheck
 
 - hosts: mysql-slave-a
+
   roles:
     - role: mysql
       mysql_replication_role: slave
       mysql_replication_master: mysql-master-b
-      mysql_root_password: superpassword
+      mysql_root_password: rootpw-ChangeME
       mysql_replication_user:
-        name: replicator
-        password: "test"
+        name: repl
+        password: replpw-ChangeME
       mysql_cfg_override: |
         [mysqld]
         server-id = 3
@@ -105,5 +104,6 @@
         tmpdir = /var/tmp
 
 - hosts: mysql-servers
+
   roles:
     - role: mysql-replication

@@ -11,12 +11,12 @@ Installs and configures MySQL on Debian servers.
 ### Most important variables
 
     mysql_replication_role: master-master|master|slave
-    mysql_replication_master: "master-host-ip"
+    mysql_replication_master: master-host-fqdn|ip
     mysql_root_password: superpassword
     mysql_cfg_override: ""
     mysql_replication_user:
-      name: replicator
-      password: test
+      name: repl
+      password: anothersuperpassword
 
 ## Role: keepalived
 
