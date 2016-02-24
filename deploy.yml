@@ -38,6 +38,7 @@
           state: SLAVE
           priority: 101
           smtp_alert: true
+          nopreempt: true
           authentication:
             auth_type: PASS
             auth_pass: ChangeME
